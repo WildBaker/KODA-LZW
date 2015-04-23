@@ -29,3 +29,6 @@
 
 # vi/vim backups
 *~
+
+#qt autosave 
+*autosave
