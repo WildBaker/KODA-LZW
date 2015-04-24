@@ -32,3 +32,6 @@
 
 #qt autosave 
 *autosave
+
+#cmake
+*.user
