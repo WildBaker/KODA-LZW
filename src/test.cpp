@@ -1,15 +1,20 @@
+///
+/// @file
+/// @brief LZW test
+///
 #include <iostream>
 #include "types.h"
 
-//namespace lzw{
-lzw::alphabet_t lzw::g_alphabet_type = E_STANDARD_TXT;
-lzw::lzw_dict_t lzw::g_dictionary;
-//} // namespace lzw
+namespace lzw{
+alphabet_t g_alphabet_type = E_STANDARD_TXT;
+lzw_dict_t g_dictionary;
+} // namespace lzw
 
 
 using namespace lzw;
 int main()
 {
+    dict_reset();
     dict_reset();
     dict_print();
 

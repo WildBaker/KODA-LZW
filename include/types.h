@@ -23,6 +23,9 @@ typedef enum {
 extern alphabet_t g_alphabet_type;
 extern lzw_dict_t g_dictionary;
 
+// globals
+static const lzw_code_t g_code_max = std::numeric_limits<lzw_code_t>::max();
+
 // some basic functions declarations
 void dict_reset();
 void dict_print();

@@ -1,3 +1,7 @@
+///
+/// @file
+/// @brief types file
+///
 #include "types.h"
 
 namespace lzw
