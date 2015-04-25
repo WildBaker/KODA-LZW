@@ -7,22 +7,21 @@
 
 namespace lzw{
 alphabet_t g_alphabet_type = E_STANDARD_TXT;
-lzw_dict_t g_dictionary;
 } // namespace lzw
 
 
 using namespace lzw;
 int main()
 {
-    dict_reset();
-    dict_reset();
-    dict_print();
 
-//    lzw::dict_print();
-//    lzw::dict_reset();
-//    lzw::dict_print();
+    lzw_dec_dict_t dec_dict;
+    dict_reset(dec_dict);
+    dict_print(dec_dict);
 
-    std::cout << "Hello World!" << std::endl;
+    lzw_dict_t dict;
+    dict_reset(dict);
+    dict_print(dict);
+
     return 0;
 }
 

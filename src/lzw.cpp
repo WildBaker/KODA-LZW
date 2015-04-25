@@ -5,78 +5,74 @@
 
 #include "lzw.h"
 #include <vector>
-
+std::vector<char> operator + (std::vector<char> vc, char c)
+{
+    vc.push_back(c);
+    return vc;
+}
 namespace lzw
 {
 void compress(std::istream &is, std::ostream &os)
 {
+    lzw_dict_t dict;
     try{
-        dict_reset();
+        dict_reset(dict);
     }catch(std::out_of_range e){
         std::cout << "[compress(...)] err: " <<  e.what() << ", globals not set corectly" << std::endl;
         return;
     }
 
-    std::string s;
+    std::vector<char> s;
     char c;
 
     while (is.get(c))
     {
         // dictionary's maximum size was reached
-        if (g_dictionary.size() == g_code_max)
-            dict_reset();
+        if (dict.size() == g_code_max)
+            dict_reset(dict);
 
         s.push_back(c);
 
-        if (g_dictionary.count(s) == 0)
+        if (dict.count(s) == 0)
         {
-            const lzw_code_t dict_size = g_dictionary.size();
+            const lzw_code_t dict_size = dict.size();
 
-            g_dictionary[s] = dict_size;
+            dict[s] = dict_size;
             s.pop_back();
-            os.write(reinterpret_cast<const char *> (&g_dictionary.at(s)), sizeof (lzw_code_t));
+            os.write(reinterpret_cast<const char *> (&dict.at(s)), sizeof (lzw_code_t));
             s = {c};
         }
     }
 
     if (!s.empty())
-        os.write(reinterpret_cast<const char *> (&g_dictionary.at(s)), sizeof (lzw_code_t));
+        os.write(reinterpret_cast<const char *> (&dict.at(s)), sizeof (lzw_code_t));
 }
 
 void decompress(std::istream &is, std::ostream &os)
 {
-    std::vector<std::string> dec_dict;
+    lzw_dec_dict_t dict;
+    dict_reset(dict);
 
-    const auto dict_dec_reset = [&dec_dict] {
-        dict_reset();
-        dec_dict.clear();
-        for(auto it = g_dictionary.begin(); it != g_dictionary.end(); it++){
-            dec_dict.push_back(it->first);
-        }
-    };
-    dict_dec_reset();
-
-
-    std::string s;
+    std::vector<char> s;
     lzw_code_t k;
 
     while (is.read(reinterpret_cast<char *> (&k), sizeof (lzw_code_t)))
     {
         // dictionary's maximum size was reached
-        if (g_dictionary.size() == g_code_max)
-            dict_dec_reset();
+        if (dict.size() == g_code_max)
+            dict_reset(dict);
 
-        if (k > dec_dict.size())
+        if (k > dict.size())
             throw std::runtime_error("invalid compressed code");
 
-        if (k == dec_dict.size())
-            dec_dict.push_back(s + s.front());
+        if (k == dict.size())
+            dict.push_back(s + s.front());
         else
         if (!s.empty())
-            dec_dict.push_back(s + dec_dict.at(k).front());
+            dict.push_back(s + dict.at(k).front());
 
-        os.write(&dec_dict.at(k).front(), dec_dict.at(k).size());
-        s = dec_dict.at(k);
+        os.write(&dict.at(k).front(), dict.at(k).size());
+        s = dict.at(k);
     }
 
     if (!is.eof() || is.gcount() != 0)

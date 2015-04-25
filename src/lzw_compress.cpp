@@ -7,9 +7,7 @@
 
 namespace lzw{
 alphabet_t g_alphabet_type = E_STANDARD_TXT;
-lzw_dict_t g_dictionary;
 } // namespace lzw
-
 
 int main(int argc, char** argv)
 {
