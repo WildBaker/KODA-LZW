@@ -19,7 +19,7 @@ struct hash_vect_char {
 };
 
 // basic types
-typedef std::uint8_t                                                        lzw_code_t;
+typedef std::uint16_t                                                        lzw_code_t;
 typedef std::unordered_map<std::vector<char>, lzw_code_t,hash_vect_char>    lzw_dict_t;
 typedef std::vector<std::vector<char> >                                     lzw_dec_dict_t;
 

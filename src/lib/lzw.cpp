@@ -57,38 +57,24 @@ void decompress(std::istream &is, std::ostream &os)
 
     std::vector<char> s;
     lzw_code_t k;
-
+    int i =0;
     while (is.read(reinterpret_cast<char *> (&k), sizeof (lzw_code_t)))
     {
         // dictionary's maximum size was reached
-        if (dict.size() == g_code_max)
+        if (dict.size() == g_code_max){
             dict_reset(dict);
+            std::cout<< "reseting " <<i++<< "\n";
+        }
 
         if (k > dict.size())
             throw std::runtime_error("invalid compressed code");
 
         if (k == dict.size()){
-//            std::cout << "s old: ";
-            for (auto  &iter : s){
-                std::cout << iter;
-            }
-            std::cout << std::endl;
-
             dict.push_back(s + s.front());
-//            std::cout << "s new: ";
-//            for (auto  &iter : s){
-//                std::cout << iter;
-//            }
-//            std::cout << std::endl;
         }
         else{
             if (!s.empty()){
                 dict.push_back(s + dict.at(k).front());
-//                std::cout << "s2: ";
-//                for (auto  &iter : s){
-//                    std::cout << iter;
-//                }
-//                std::cout << std::endl;
             }
         }
 
