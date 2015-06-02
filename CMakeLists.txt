@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 include_directories(include)
 add_library(lzw src/lib/lzw.cpp include/lib/lzw.h src/lib/types.cpp include/lib/types.h)
 
-add_executable(test src/test.cpp)
+add_executable(test src/tests/test.cpp)
 target_link_libraries(test lzw)
 
 add_executable(compress src/lzw_compress)
