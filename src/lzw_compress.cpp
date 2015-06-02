@@ -2,7 +2,7 @@
 /// @file
 /// @brief LZW file compression programm
 ///
-#include "lzw.h"
+#include "lib/lzw.h"
 #include <fstream>
 
 namespace lzw{

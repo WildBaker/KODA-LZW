@@ -3,7 +3,7 @@
 /// @brief LZW test
 ///
 #include <iostream>
-#include "types.h"
+#include "lib/types.h"
 
 namespace lzw{
 alphabet_t g_alphabet_type = E_STANDARD_TXT;

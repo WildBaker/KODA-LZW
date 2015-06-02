@@ -2,7 +2,7 @@
 /// @file
 /// @brief types file
 ///
-#include "types.h"
+#include "lib/types.h"
 #include <iomanip>
 
 namespace lzw

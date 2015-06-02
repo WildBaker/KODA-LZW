@@ -3,7 +3,7 @@
 /// @brief LZW file lib
 ///
 
-#include "lzw.h"
+#include "lib/lzw.h"
 #include <vector>
 std::vector<char> operator + (std::vector<char> vc, char c)
 {
