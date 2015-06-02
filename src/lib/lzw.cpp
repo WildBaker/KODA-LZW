@@ -5,6 +5,8 @@
 
 #include "lib/lzw.h"
 #include <vector>
+#include <iostream>
+
 std::vector<char> operator + (std::vector<char> vc, char c)
 {
     vc.push_back(c);
@@ -65,11 +67,30 @@ void decompress(std::istream &is, std::ostream &os)
         if (k > dict.size())
             throw std::runtime_error("invalid compressed code");
 
-        if (k == dict.size())
+        if (k == dict.size()){
+//            std::cout << "s old: ";
+            for (auto  &iter : s){
+                std::cout << iter;
+            }
+            std::cout << std::endl;
+
             dict.push_back(s + s.front());
-        else
-        if (!s.empty())
-            dict.push_back(s + dict.at(k).front());
+//            std::cout << "s new: ";
+//            for (auto  &iter : s){
+//                std::cout << iter;
+//            }
+//            std::cout << std::endl;
+        }
+        else{
+            if (!s.empty()){
+                dict.push_back(s + dict.at(k).front());
+//                std::cout << "s2: ";
+//                for (auto  &iter : s){
+//                    std::cout << iter;
+//                }
+//                std::cout << std::endl;
+            }
+        }
 
         os.write(&dict.at(k).front(), dict.at(k).size());
         s = dict.at(k);

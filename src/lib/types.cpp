@@ -106,4 +106,9 @@ void dict_print(lzw_dec_dict_t &a_dictionary){
             std::cout << std::endl;
     }
 }
+
+void SetCodeMax(lzw_code_t newMax){
+    g_code_max = std::min (newMax, std::numeric_limits<lzw_code_t>::max());
+}
+
 } // namespace lzw

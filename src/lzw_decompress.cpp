@@ -11,9 +11,13 @@ alphabet_t g_alphabet_type = E_STANDARD_TXT;
 
 int main(int argc, char **argv)
 {
-    if(argc != 3){
+    if(argc < 3){
         std::cout << "Wrong no of args...\n";
         return 1;
+    }
+
+    if(argc == 4){
+        lzw::SetCodeMax(atoi(argv[3]));
     }
 
     std::ifstream in_f(argv[1], std::ios_base::binary);
