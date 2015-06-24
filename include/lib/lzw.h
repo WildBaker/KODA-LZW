@@ -2,6 +2,7 @@
 #define lzw_lib
 
 #include "types.h"
+#include <stdexcept>
 namespace lzw
 {
 void compress(std::istream &is, std::ostream &os);

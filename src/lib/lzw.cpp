@@ -61,6 +61,7 @@ void decompress(std::istream &is, std::ostream &os)
     while (is.read(reinterpret_cast<char *> (&k), sizeof (lzw_code_t)))
     {
         // dictionary's maximum size was reached
+        std::cout << dict.size() <<" " << g_code_max <<"\n";
         if (dict.size() == g_code_max){
             dict_reset(dict);
             std::cout<< "reseting " <<i++<< "\n";
